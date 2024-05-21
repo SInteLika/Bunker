@@ -913,7 +913,7 @@ function generationBunker() {
     let time = getRandom(2, 24)
     let eat = getRandom(1, 100) < 30 ? 'еды не хватит на всё время пребывания' : 'еда в достатке'
     let room = randBunkerItem(bunker.room) + '\n' + randBunkerItem(bunker.room)
-    let item = randBunkerItem(bunker.addItems)
+    let item = randBunkerItem(bunker.addItems) + '\n' + randBunkerItem(bunker.addItems) + '\n' + randBunkerItem(bunker.addItems)
     let animal = getRandom(1, 100) < 30 ? 'Никого нет' : randBunkerItem(bunker.animals)
 
     let result = `Характеристики Бункера:
@@ -1101,9 +1101,16 @@ function getBodySex() {
     
 
     let reductionOfCharacteristics = 10;
+    let reductionBodyMuch = 15
+    let reductionBodyMedium = 8
 
     height = height <= 25 ? { text: 'Вы карлик', value : reductionOfCharacteristics } : height <= 75 ? { text: 'Вы среднего роста', value: 0 } : { text: 'Вы великан', value: reductionOfCharacteristics }
-    body = body <= 25 ? { text: 'Вы анарексик', value: reductionOfCharacteristics } : body <= 75 ? { text: 'У вас нормальный вес', value: 0 } : { text: 'Вы жиробас', value: reductionOfCharacteristics }
+
+    body = body <= 20 ? { text: 'Вы невероятно худой, как спичка', value: reductionBodyMuch }
+            : body <= 35 ? { text: 'Вы худой', value: reductionBodyMedium }
+            : body <= 65  ? { text: 'У вас нормальный вес', value: 0 }
+            : body <= 80  ? { text: 'У вас лёгкая полнота', value: reductionBodyMedium }
+            : { text: 'У вас черезмерное ожирение', value: reductionBodyMuch }
 
     reductionOfCharacteristics = height.value + body.value;
     
